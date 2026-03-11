@@ -1,9 +1,3 @@
-# higherOrderFunctions-reduce
-
-
-
-## Données
-
 ```javascript
 var people = [ 
   {name: {first: 'Grace', middle: 'B.', last: 'Hopper'}, age: 85}, 
@@ -13,8 +7,6 @@ var people = [
   {name: {first: 'Ruchi', last: 'Sanghvi'}, age: 34} 
 ]; 
 ```
-
----
 
 ## 1 — Âge moyen
 
@@ -26,6 +18,11 @@ var people = [
 
 ```javascript
 function averageAge(people) {
+ var somme = people.reduce(function(acc, person) {
+    return acc + person.age;
+  }, 0);
+
+  return somme / people.length;
 }
 ```
 
@@ -49,6 +46,10 @@ En utilisant `range` et `reduce`, complète la fonction `factorial` qui calcule 
 
 ```javascript
 function factorial(n) {
+return range(1, n + 1).reduce(function(acc, num) {
+    return acc * num;
+  }, 1);
+}
 }
 ```
 
@@ -71,6 +72,12 @@ et retourne le nombre de fois que ce caractère apparaît.
 
 ```javascript
 function countOccurrences(chaine, caractere) {
+return chaine.split('').reduce(function(count, char) {
+    if (char === caractere) {
+      return count + 1;
+    }
+    return count;
+  }, 0);
 }
 ```
 
@@ -92,6 +99,9 @@ countOccurrences('hello, world!', 'l'); // => 3
 
 ```javascript
 function tousImpairs(nombres) {
+return nombres.every(function(n) {
+    return n % 2 !== 0;
+  });
 }
 ```
 
@@ -101,6 +111,9 @@ function tousImpairs(nombres) {
 
 ```javascript
 function tousPositifs(nombres) {
+ return nombres.every(function(n) {
+    return n > 0;
+  });
 }
 ```
 
@@ -110,6 +123,9 @@ function tousPositifs(nombres) {
 
 ```javascript
 function longueurSuperieureA3(chaines) {
+ return chaines.every(function(c) {
+    return c.length > 3;
+  });
 }
 ```
 
@@ -119,6 +135,9 @@ function longueurSuperieureA3(chaines) {
 
 ```javascript
 function contiennentE(chaines) {
+return chaines.every(function(c) {
+    return c.includes('e');
+  });
 }
 ```
 
@@ -134,6 +153,12 @@ function contiennentE(chaines) {
 
 ```javascript
 function every(tab, predicate) {
+for (var i = 0; i < tab.length; i++) {
+    if (!predicate(tab[i])) {
+      return false;
+    }
+  }
+  return true;
 }
 ```
 
@@ -154,6 +179,9 @@ function everyNumberEven(numbers) {
 
 ```javascript
 function agesSuperieursA30(people) {
+return people.every(function(person) {
+    return person.age > 30;
+  });
 }
 ```
 
@@ -171,9 +199,11 @@ function tousOntPrenom(people) {
 ### 8 — Tous les prénoms contiennent au moins 3 lettres
 
 ```javascript
-function prenomsLongs(people) {
-  // Écris ton code ici
-}
+function prenomsLongs(people) { return people.every(function(person) {
+    return person.name.first.length >= 3;
+  });
+  }
+  
 ```
 
 ---
@@ -184,6 +214,11 @@ function prenomsLongs(people) {
 
 ```javascript
 function sommeAgesSup200(people) {
+var somme = people.reduce(function(acc, person) {
+    return acc + person.age;
+  }, 0);
+
+  return somme > 200;
 }
 ```
 
@@ -193,5 +228,9 @@ function sommeAgesSup200(people) {
 
 ```javascript
 function nomsMajuscule(people) {
+return people.every(function(person) {
+    var last = person.name.last;
+    return last[0] === last[0].toUpperCase();
+  });
 }
 ```
